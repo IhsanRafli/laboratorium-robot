@@ -3,6 +3,9 @@ import * as THREE from 'https://esm.sh/three@0.160.0';
 import { OrbitControls }
 from 'https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js';
 
+// start imports
+// end imports
+
 const canvas = document.querySelector('#c');
 const info = document.querySelector('#info');
 
@@ -10,25 +13,34 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x08111f);
 scene.fog = new THREE.Fog(0x08111f, 18, 45);
 
+// start camera
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(9, 7, 11);
+// end camera
 
+// start renderer
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// end renderer
 
+// start controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.target.set(0, 1.2, 0);
+// end controls
 
+// start texture
 const textureLoader = new THREE.TextureLoader();
 const labTexture = textureLoader.load('./Textures/lab-grid.svg');
 labTexture.wrapS = THREE.RepeatWrapping;
 labTexture.wrapT = THREE.RepeatWrapping;
 labTexture.repeat.set(4, 4);
+// end texture
 
+// start lights
 const ambient = new THREE.AmbientLight(0xffffff, 0.55);
 scene.add(ambient);
 
@@ -41,7 +53,9 @@ scene.add(keyLight);
 const rimLight = new THREE.PointLight(0xff7a59, 1.7, 30);
 rimLight.position.set(-6, 4, -4);
 scene.add(rimLight);
+// end lights
 
+// start floor and walls
 const floor = new THREE.Mesh(
 	new THREE.PlaneGeometry(36, 36),
 	new THREE.MeshStandardMaterial({ map: labTexture, color: 0xb7d8ff, roughness: 0.95, metalness: 0.05 })
@@ -64,12 +78,13 @@ const wallLeft = new THREE.Mesh(
 wallLeft.rotation.y = Math.PI / 2;
 wallLeft.position.set(-9, 6, 0);
 scene.add(wallLeft);
+// end floor and walls
 
-// Group containing all lab objects. Renamed to `labWorkspace` for clarity.
+// start lab workspace
 const labWorkspace = new THREE.Group();
 scene.add(labWorkspace);
 
-// Main robot actor (personalized naming).
+// start robot
 const ihsanRobot = new THREE.Group();
 const robotBodyMaterial = new THREE.MeshStandardMaterial({ color: 0x5fd7ff, metalness: 0.25, roughness: 0.35 });
 const robotDarkMaterial = new THREE.MeshStandardMaterial({ color: 0x1c2433, metalness: 0.45, roughness: 0.75 });
@@ -125,8 +140,9 @@ const ihsanRobotHitbox = new THREE.Mesh(
 ihsanRobotHitbox.position.set(0, 2.05, 0);
 ihsanRobotHitbox.userData.target = 'robot';
 ihsanRobot.add(ihsanRobotHitbox);
+// end robot
 
-// Lab workstation group
+// start computer
 const labComputer = new THREE.Group();
 const computerBaseMaterial = new THREE.MeshStandardMaterial({ color: 0x2d3445, metalness: 0.35, roughness: 0.7 });
 computerBaseMaterial.emissive = new THREE.Color(0x000000);
@@ -167,7 +183,9 @@ const labComputerHitbox = new THREE.Mesh(
 labComputerHitbox.position.set(0, 1.5, 0.3);
 labComputerHitbox.userData.target = 'computer';
 labComputer.add(labComputerHitbox);
+// end computer
 
+// start satellite
 const satellite = new THREE.Group();
 const satelliteCore = new THREE.Mesh(new THREE.SphereGeometry(0.9, 24, 24), new THREE.MeshStandardMaterial({ color: 0x9eb2c7, metalness: 0.2, roughness: 0.4 }));
 satelliteCore.castShadow = true;
@@ -197,7 +215,9 @@ satellite.add(panelArmR);
 
 satellite.position.set(3.8, 0, -1.5);
 labWorkspace.add(satellite);
+// end satellite
 
+// start battery
 const battery = new THREE.Group();
 const batteryBody = new THREE.Mesh(
 	new THREE.CylinderGeometry(0.65, 0.65, 2.3, 24),
@@ -227,7 +247,9 @@ battery.add(batteryRing);
 
 battery.position.set(1.7, 0, 2.4);
 labWorkspace.add(battery);
+// end battery
 
+// start antenna
 const antenna = new THREE.Group();
 const antennaStand = new THREE.Mesh(
 	new THREE.CylinderGeometry(0.18, 0.25, 2.8, 18),
@@ -255,7 +277,9 @@ antenna.add(antennaDot);
 
 antenna.position.set(5.2, 0, 2.2);
 labWorkspace.add(antenna);
+// end antenna
 
+// start interaction
 const clickables = [ihsanRobotHitbox, labComputerHitbox];
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -377,12 +401,15 @@ function onResize() {
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 
+// end interaction
+
 const clock = new THREE.Clock();
 
 setRobotState(false);
 setComputerState(false);
 applyInteractionState();
 
+// start animation
 function animate() {
 	const elapsed = clock.getElapsedTime();
 
@@ -401,3 +428,4 @@ function animate() {
 
 updateSelectionFeedback();
 renderer.setAnimationLoop(animate);
+// end animation
