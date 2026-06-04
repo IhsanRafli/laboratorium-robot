@@ -2,7 +2,7 @@
 
 ## Identitas
 
-- Nama: Ihsan Rafli
+- Nama: M.Ihsan Rafli
 - NIM: 2305010008
 
 ## Tema Scene
@@ -30,6 +30,4 @@ Scene Three.js bertema laboratorium robot dengan nuansa futuristik.
 
 ![Screenshot Robot Research Lab - Objek Dipilih](./screenshot-clicked.png)
 
-## Catatan
 
-- Jika file `screenshot.png` atau `screenshot-clicked.png` belum ada, tambahkan hasil screenshot scene ke root folder repo dengan nama tersebut.
