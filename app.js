@@ -65,105 +65,108 @@ wallLeft.rotation.y = Math.PI / 2;
 wallLeft.position.set(-9, 6, 0);
 scene.add(wallLeft);
 
-const labGroup = new THREE.Group();
-scene.add(labGroup);
+// Group containing all lab objects. Renamed to `labWorkspace` for clarity.
+const labWorkspace = new THREE.Group();
+scene.add(labWorkspace);
 
-const robot = new THREE.Group();
+// Main robot actor (personalized naming).
+const ihsanRobot = new THREE.Group();
 const robotBodyMaterial = new THREE.MeshStandardMaterial({ color: 0x5fd7ff, metalness: 0.25, roughness: 0.35 });
 const robotDarkMaterial = new THREE.MeshStandardMaterial({ color: 0x1c2433, metalness: 0.45, roughness: 0.75 });
 robotBodyMaterial.emissive = new THREE.Color(0x000000);
 robotDarkMaterial.emissive = new THREE.Color(0x000000);
 
-const robotBody = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.8, 1.1), robotBodyMaterial);
-robotBody.castShadow = true;
-robotBody.position.y = 1.4;
-robot.add(robotBody);
+const ihsanRobotBody = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.8, 1.1), robotBodyMaterial);
+ihsanRobotBody.castShadow = true;
+ihsanRobotBody.position.y = 1.4;
+ihsanRobot.add(ihsanRobotBody);
 
-const robotHead = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.9, 0.9), robotDarkMaterial);
-robotHead.castShadow = true;
-robotHead.position.set(0, 2.55, 0);
-robot.add(robotHead);
+const ihsanRobotHead = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.9, 0.9), robotDarkMaterial);
+ihsanRobotHead.castShadow = true;
+ihsanRobotHead.position.set(0, 2.55, 0);
+ihsanRobot.add(ihsanRobotHead);
 
-const robotAntenna = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.8, 16), robotDarkMaterial);
-robotAntenna.position.set(0, 3.25, 0);
-robotAntenna.castShadow = true;
-robot.add(robotAntenna);
+const ihsanRobotAntenna = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.8, 16), robotDarkMaterial);
+ihsanRobotAntenna.position.set(0, 3.25, 0);
+ihsanRobotAntenna.castShadow = true;
+ihsanRobot.add(ihsanRobotAntenna);
 
-const robotAntennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffcf5a, emissive: 0x553300, emissiveIntensity: 0.5 }));
-robotAntennaTip.position.set(0, 3.75, 0);
-robot.add(robotAntennaTip);
+const ihsanRobotAntennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffcf5a, emissive: 0x553300, emissiveIntensity: 0.5 }));
+ihsanRobotAntennaTip.position.set(0, 3.75, 0);
+ihsanRobot.add(ihsanRobotAntennaTip);
 
-const robotEyeL = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x36d8ff, emissiveIntensity: 1.8 }));
-robotEyeL.position.set(-0.22, 2.62, 0.46);
-robot.add(robotEyeL);
+const ihsanRobotEyeL = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x36d8ff, emissiveIntensity: 1.8 }));
+ihsanRobotEyeL.position.set(-0.22, 2.62, 0.46);
+ihsanRobot.add(ihsanRobotEyeL);
 
-const robotEyeR = robotEyeL.clone();
-robotEyeR.position.x = 0.22;
-robot.add(robotEyeR);
+const ihsanRobotEyeR = ihsanRobotEyeL.clone();
+ihsanRobotEyeR.position.x = 0.22;
+ihsanRobot.add(ihsanRobotEyeR);
 
 const robotArmGeo = new THREE.CylinderGeometry(0.08, 0.08, 1.2, 14);
-const robotArmL = new THREE.Mesh(robotArmGeo, robotDarkMaterial);
-robotArmL.position.set(-0.95, 1.55, 0);
-robotArmL.rotation.z = 0.5;
-robotArmL.castShadow = true;
-robot.add(robotArmL);
+const ihsanRobotArmL = new THREE.Mesh(robotArmGeo, robotDarkMaterial);
+ihsanRobotArmL.position.set(-0.95, 1.55, 0);
+ihsanRobotArmL.rotation.z = 0.5;
+ihsanRobotArmL.castShadow = true;
+ihsanRobot.add(ihsanRobotArmL);
 
-const robotArmR = robotArmL.clone();
-robotArmR.position.x = 0.95;
-robotArmR.rotation.z = -0.5;
-robot.add(robotArmR);
+const ihsanRobotArmR = ihsanRobotArmL.clone();
+ihsanRobotArmR.position.x = 0.95;
+ihsanRobotArmR.rotation.z = -0.5;
+ihsanRobot.add(ihsanRobotArmR);
 
-robot.position.set(-4.2, 0, 0.5);
-labGroup.add(robot);
+ihsanRobot.position.set(-4.2, 0, 0.5);
+labWorkspace.add(ihsanRobot);
 
-const robotPickBox = new THREE.Mesh(
+const ihsanRobotHitbox = new THREE.Mesh(
 	new THREE.BoxGeometry(2.3, 4.4, 2.0),
 	new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.01 })
 );
-robotPickBox.position.set(0, 2.05, 0);
-robotPickBox.userData.target = 'robot';
-robot.add(robotPickBox);
+ihsanRobotHitbox.position.set(0, 2.05, 0);
+ihsanRobotHitbox.userData.target = 'robot';
+ihsanRobot.add(ihsanRobotHitbox);
 
-const computer = new THREE.Group();
+// Lab workstation group
+const labComputer = new THREE.Group();
 const computerBaseMaterial = new THREE.MeshStandardMaterial({ color: 0x2d3445, metalness: 0.35, roughness: 0.7 });
 computerBaseMaterial.emissive = new THREE.Color(0x000000);
 const monitorFrame = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.5, 0.18), computerBaseMaterial);
 monitorFrame.castShadow = true;
 monitorFrame.position.y = 2.1;
-computer.add(monitorFrame);
+labComputer.add(monitorFrame);
 
 const screen = new THREE.Mesh(
 	new THREE.PlaneGeometry(1.8, 1.05),
 	new THREE.MeshStandardMaterial({ color: 0x142e35, emissive: 0x0f6375, emissiveIntensity: 0.8, map: labTexture })
 );
 screen.position.set(0, 2.1, 0.12);
-computer.add(screen);
+labComputer.add(screen);
 
 const keyboard = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.12, 0.7), computerBaseMaterial);
 keyboard.position.set(0, 0.55, 0.65);
 keyboard.castShadow = true;
-computer.add(keyboard);
+labComputer.add(keyboard);
 
 const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.12, 0.9, 14), computerBaseMaterial);
 stand.position.set(0, 1.35, 0);
 stand.castShadow = true;
-computer.add(stand);
+labComputer.add(stand);
 
 const standBase = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.12, 0.45), computerBaseMaterial);
 standBase.position.set(0, 0.88, 0.05);
 standBase.castShadow = true;
-computer.add(standBase);
+labComputer.add(standBase);
 
-computer.position.set(-0.6, 0, -0.7);
-labGroup.add(computer);
+labComputer.position.set(-0.6, 0, -0.7);
+labWorkspace.add(labComputer);
 
-const computerPickBox = new THREE.Mesh(
+const labComputerHitbox = new THREE.Mesh(
 	new THREE.BoxGeometry(3.2, 3.8, 2.4),
 	new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.01 })
 );
-computerPickBox.position.set(0, 1.5, 0.3);
-computerPickBox.userData.target = 'computer';
-computer.add(computerPickBox);
+labComputerHitbox.position.set(0, 1.5, 0.3);
+labComputerHitbox.userData.target = 'computer';
+labComputer.add(labComputerHitbox);
 
 const satellite = new THREE.Group();
 const satelliteCore = new THREE.Mesh(new THREE.SphereGeometry(0.9, 24, 24), new THREE.MeshStandardMaterial({ color: 0x9eb2c7, metalness: 0.2, roughness: 0.4 }));
@@ -193,7 +196,7 @@ panelArmR.position.x = 1.1;
 satellite.add(panelArmR);
 
 satellite.position.set(3.8, 0, -1.5);
-labGroup.add(satellite);
+labWorkspace.add(satellite);
 
 const battery = new THREE.Group();
 const batteryBody = new THREE.Mesh(
@@ -223,7 +226,7 @@ batteryRing.position.set(-0.2, 0.8, 0);
 battery.add(batteryRing);
 
 battery.position.set(1.7, 0, 2.4);
-labGroup.add(battery);
+labWorkspace.add(battery);
 
 const antenna = new THREE.Group();
 const antennaStand = new THREE.Mesh(
@@ -251,16 +254,16 @@ antennaDot.position.set(0, 2.75, 0.78);
 antenna.add(antennaDot);
 
 antenna.position.set(5.2, 0, 2.2);
-labGroup.add(antenna);
+labWorkspace.add(antenna);
 
-const clickables = [robotPickBox, computerPickBox];
+const clickables = [ihsanRobotHitbox, labComputerHitbox];
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 let hoverObject = null;
 let selectedTarget = null;
 
-const defaultRobotScale = robot.scale.clone();
-const defaultComputerScale = computer.scale.clone();
+const defaultRobotScale = ihsanRobot.scale.clone();
+const defaultComputerScale = labComputer.scale.clone();
 const defaultRobotBodyEmissive = robotBodyMaterial.emissive.clone();
 const defaultRobotDarkEmissive = robotDarkMaterial.emissive.clone();
 const defaultComputerEmissive = computerBaseMaterial.emissive.clone();
@@ -282,8 +285,8 @@ function applyInteractionState() {
 	const robotIsSelected = selectedTarget === 'robot';
 	const computerIsSelected = selectedTarget === 'computer';
 
-	robot.scale.setScalar(robotIsHovered || robotIsSelected ? 1.08 : defaultRobotScale.x);
-	computer.scale.setScalar(computerIsHovered || computerIsSelected ? 1.08 : defaultComputerScale.x);
+	ihsanRobot.scale.setScalar(robotIsHovered || robotIsSelected ? 1.08 : defaultRobotScale.x);
+	labComputer.scale.setScalar(computerIsHovered || computerIsSelected ? 1.08 : defaultComputerScale.x);
 
 	robotBodyMaterial.emissive.setHex(robotIsHovered || robotIsSelected ? 0x123b57 : defaultRobotBodyEmissive.getHex());
 	robotDarkMaterial.emissive.setHex(robotIsHovered || robotIsSelected ? 0x06090f : defaultRobotDarkEmissive.getHex());
@@ -298,10 +301,10 @@ function setMessage(text) {
 function setRobotState(active) {
 	robotBodyMaterial.color.set(active ? 0xffc857 : 0x5fd7ff);
 	robotDarkMaterial.color.set(active ? 0x4e2e11 : 0x1c2433);
-	robotEyeL.material.emissive.set(active ? 0xffb347 : 0x36d8ff);
-	robotEyeR.material.emissive.set(active ? 0xffb347 : 0x36d8ff);
-	robotAntennaTip.material.emissive.set(active ? 0xff5511 : 0x553300);
-	robot.rotation.y = active ? Math.PI / 8 : 0;
+	ihsanRobotEyeL.material.emissive.set(active ? 0xffb347 : 0x36d8ff);
+	ihsanRobotEyeR.material.emissive.set(active ? 0xffb347 : 0x36d8ff);
+	ihsanRobotAntennaTip.material.emissive.set(active ? 0xff5511 : 0x553300);
+	ihsanRobot.rotation.y = active ? Math.PI / 8 : 0;
 }
 
 function setComputerState(active) {
@@ -383,14 +386,14 @@ applyInteractionState();
 function animate() {
 	const elapsed = clock.getElapsedTime();
 
-	robotHead.rotation.y = Math.sin(elapsed * 1.8) * 0.14;
-	robotArmL.rotation.z = 0.5 + Math.sin(elapsed * 3.2) * 0.05;
-	robotArmR.rotation.z = -0.5 - Math.sin(elapsed * 3.2) * 0.05;
+	ihsanRobotHead.rotation.y = Math.sin(elapsed * 1.8) * 0.14;
+	ihsanRobotArmL.rotation.z = 0.5 + Math.sin(elapsed * 3.2) * 0.05;
+	ihsanRobotArmR.rotation.z = -0.5 - Math.sin(elapsed * 3.2) * 0.05;
 	satellite.rotation.y = elapsed * 0.35;
 	satellite.position.y = Math.sin(elapsed * 2) * 0.12 + 0.05;
 	battery.rotation.y = elapsed * 0.8;
 	antenna.rotation.y = Math.sin(elapsed * 1.1) * 0.18;
-	labGroup.rotation.y = Math.sin(elapsed * 0.12) * 0.06;
+	labWorkspace.rotation.y = Math.sin(elapsed * 0.12) * 0.06;
 
 	controls.update();
 	renderer.render(scene, camera);
