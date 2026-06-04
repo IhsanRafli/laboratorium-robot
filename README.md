@@ -2,7 +2,7 @@
 
 ## Identitas
 
-- Nama: Ihsan Rafli
+- Nama: M.Ihsan Rafli
 - NIM: 2305010008
 
 ## Tema Scene
