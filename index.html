@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Robot Research Lab</title>
+<title>By ihsan</title>
 
 <style>
 body{
@@ -20,6 +20,19 @@ background:rgba(0,0,0,.6);
 padding:10px;
 border-radius:8px;
 }
+
+#hoverInfo{
+position:absolute;
+display:none;
+pointer-events:none;
+color:white;
+background:rgba(0,0,0,.72);
+padding:8px 10px;
+border-radius:8px;
+font-size:14px;
+transform:translate(14px, 14px);
+white-space:nowrap;
+}
 </style>
 
 </head>
@@ -29,6 +42,8 @@ border-radius:8px;
 <div id="info">
 Klik objek
 </div>
+
+<div id="hoverInfo"></div>
 
 <canvas id="c"></canvas>
 
